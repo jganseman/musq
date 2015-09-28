@@ -30,7 +30,7 @@ declare function local:MidiNote($thispitch as element(pitch)) as xs:integer
 declare function local:Permute($this as item()*) as item()*
 {
 	for $element in $this
-	let $remaininglist := remove($this, min(index-of($this,$element)))    (: index-of may return a sequence, we require only one value :)
+	let $remaininglist := remove($this, min(index-of($this,$element)))    (: 'min' use to that index-of returns only one value :)
 	let $recursionresults := if (count($remaininglist) eq 1 ) then <t>{$remaininglist}</t> else local:Permute($remaininglist)
 	for $suffix in $recursionresults
 	return <perm>{insert-before($suffix//t, 0, <t>{$element}</t>)}</perm>
@@ -52,34 +52,42 @@ return local:Permute($s)
 
 
 
-(: searching for harmonic families: a chord and all its permutations :)
-(: again use the same: find a large triad and all of its permutations :)
-(: this includes overlapping if triads are repeated, but there must be no note in between and all notes must occur :)
-
-let $bd := doc("wikifonia-formatted.xml")//score-partwise[movement-title = 'Blue Danube']
-let $notes := $bd//note[empty(rest)]
-for $i in (1 to (count($notes)-3))				(: document order is preserved anyway :)
-let $s := subsequence($notes, $i, 3)			(: get all sequences of 3 notes :)
-let $pitc := $s/pitch			(: all 3 pitch values in a row  - could be unpitched? :)
-let $voic := distinct-values($s/voice)			(: only distinct voice values :)
-let $meas := $s/..
-(: let $perm := local:Permute($pitc) :)
-where count($s/rest) = 0			(: no rests :)
-and count($voic) = (0,1)			(: in the same voice :)
-and count(distinct-values($pitc)) = 3				(: 3 distinct elements :)
+(: Searching for a chord and all its inversions in a specific song :)
+(: A chord inversion is any permutation of the MIDI pitches :)
+(: This may return overlapping chords if an arpeggiated chord is continued :)
+(: All notes must occur after each other without rests in between :)
+(: All MIDI pitches in the chord must be distinct :)
+let $songtitle := 'Blue Danube'
+let $chordsize := 3					(: nr of notes in chord :)
+let $intervals := (4 , 3)		(: intervals: 4 + 3 semitones :)
+let $db := doc("wikifonia-formatted.xml")//score-partwise[movement-title = $songtitle]
+let $notes := $db//note[empty(rest)]	 (: select all notes, no rests. Document order is preserved :)
+		
+for $i in (1 to (count($notes)-$chordsize))				
+		(: reformat this into a set of n-note sequences :)
+let $s := subsequence($notes, $i, $chordsize)			
+let $p := $s/pitch			(: get all n pitch values in a row  :)
+let $v := distinct-values($s/voice)			
+where count($v) = (0,1)		(: enforce all notes in the same voice :)
+	and count(distinct-values($p)) = $chordsize				
 	(: now, the pitches must relate to eachother as a large triad. :)
 	(: some permutation must exist so that it is such a triad :)
-
-and ( some $permval in local:Permute(($pitc[1],$pitc[2],$pitc[3])) satisfies (
-		local:MidiNote(($permval//pitch)[1])+4 eq local:MidiNote(($permval//pitch)[2])
-		and local:MidiNote(($permval//pitch)[2])+3 eq local:MidiNote(($permval//pitch)[3])
+	and ( some $perm in local:Permute(($p[1],$p[2],$p[3])) satisfies (
+		local:MidiNote(($perm//pitch)[1])+$intervals[1] 
+			eq local:MidiNote(($perm//pitch)[2])
+		and local:MidiNote(($perm//pitch)[2])+$intervals[2] 
+			eq local:MidiNote(($perm//pitch)[3])
+		(: and local:MidiNote(($perm//pitch)[3])+$intervals[3] 
+			eq local:MidiNote(($perm//pitch)[4]) :)
+		(: add more lines with updated arguments 
+			according to the length of the chord :)
 	))
 return
-<triad>
+<found-chord>
 	<measure-start>{$s[1]/../@number/string()}</measure-start>
-	<note-start>{index-of($s[1]/..//pitch,$pitc[1])}</note-start>
-	<pitch-start>{local:MidiNote($pitc[1])}</pitch-start>
-	<pitch-middle>{local:MidiNote($pitc[2])}</pitch-middle>
-	<pitch-end>{local:MidiNote($pitc[3])}</pitch-end>
-</triad>
-
+	<note-start>{index-of($s[1]/..//pitch,$p[1])}</note-start>
+	<pitch-1>{local:MidiNote($p[1])}</pitch-1>
+	<pitch-2>{local:MidiNote($p[2])}</pitch-2>
+	<pitch-3>{local:MidiNote($p[3])}</pitch-3>
+</found-chord>
+(: more output can be added for longer chords :)
