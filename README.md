@@ -23,5 +23,10 @@ BibTeX:
   ```
 
 ### Requirements
-- A running instance of eXist-db (http://exist-db.org). The initial paper was written using eXist 1.2.0-rev7233 . The latest stable release of eXist, at the moment of writing, is 2.2. 
+- A running instance of eXist-db (http://exist-db.org). The initial paper was written using eXist 1.2.0-rev7233 . The files uploaded here have been tested to work with eXist 1.4.3 . The latest stable release of eXist, at the moment of writing, is 2.2. 
 - A set of MusicXML files. The online database mentioned in the paper, Wikifonia, does not exist anymore. See http://www.musicxml.com/music-in-musicxml/ for possible alternatives, or convert it from a database in another format.
+
+### Contents
+- wikifonia2008.zip : Zip file containing the data used for the initial paper. This is a dump of the Wikifonia database at 31 march 2008 in a single file called wikifonia-formatted.xml . This file is provided for reasons of research reproducibility. It is password-protected; the password is equal to the filename without extension. It can be loaded into eXist to run the queries in the following files:
+- mxqueries2008.xq : List of queries used for the initial paper. This is a single file, the query to be used needs to be uncommented.
+- mxqueries2008b.xq : This file contains an additional query that had not been finished at the time, but is now.
