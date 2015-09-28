@@ -27,6 +27,9 @@ BibTeX:
 - A set of MusicXML files. The online database mentioned in the paper, Wikifonia, does not exist anymore. See http://www.musicxml.com/music-in-musicxml/ for possible alternatives, or convert it from a database in another format.
 
 ### Contents
-- wikifonia2008.zip : Zip file containing the data used for the initial paper. This is a dump of the Wikifonia database at 31 march 2008 in a single file called wikifonia-formatted.xml . This file is provided for reasons of research reproducibility. It is password-protected; the password is equal to the filename without extension. It can be loaded into eXist to run the queries in the following files:
-- mxqueries2008.xq : List of queries used for the initial paper. This is a single file, the query to be used needs to be uncommented.
+- mxqueries2008.xq : List of queries used for the initial ISMIR 2008 paper. This is a single file, the query to be used needs to be uncommented.
 - mxqueries2008b.xq : This file contains an additional query that had not been finished at the time, but is now.
+- Three Zip files Wikifonia data. These files are provided for reasons of research reproducibility. They are password-protected; the password is equal to the filename without extension. This data can be loaded into eXist to run the queries in the files above.
+-- wikifonia2008.zip : Dump of the Wikifonia database, made on 31 march 2008, containing contains 220 scores joined together in a single file. This is the data used for the original ISMIR 2008 paper. 
+-- wikifonia2009.zip : Dump of the Wikifonia database, made on 19 June 2009, containing 1381 files.
+-- wikifonia2010.zip : Dump of the Wikifonia database, made on 03 May 2010, containing 2265 files.
