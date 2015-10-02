@@ -85,4 +85,39 @@ declare variable $partofdb := $entiredb[contains (.//movement-title, 'Night')];
         }
     </musq:test-lyriclibrary> 
     
+    <musq:test-findrhythm>
+        {
+            musq:FindRhythm($entiredb[.//movement-title = 'Blue Danube'], (4, 4, 4, 12) )
+        }
+    </musq:test-findrhythm> 
+    
+    <musq:test-findmelody>
+        {
+            musq:FindMelody($entiredb[.//movement-title = 'Blue Danube'], (4, 3, 0) )
+        }
+    </musq:test-findmelody> 
+    
+    <musq:test-permute>
+        {
+            for $i in musq:Permute(("A","B","C","D"))
+            return $i
+        }
+        {
+            let $s := subsequence($entiredb[.//movement-title = 'Blue Danube']//pitch, 1, 3)
+            return musq:Permute($s)
+        }
+    </musq:test-permute>
+    
+    <musq:test-findchord>
+        {
+            musq:FindChord($entiredb[.//movement-title = 'Blue Danube'], (4, 3) )
+        }
+    </musq:test-findchord>
+    
+    <musq:test-findmotive>
+        {
+            musq:FindMotive($entiredb[.//movement-title = 'Blue Danube'], (4, 4, 4, 12), (4, 3, 0) )
+        }
+    </musq:test-findmotive>
+
 </musq:all-tests>
