@@ -6,7 +6,7 @@ xquery version "3.0";
  : @author Joachim Ganseman
 :)
 
-declare namespace musq="https://github.com/jganseman/mxquery";
+declare namespace musq="https://github.com/jganseman/musq";
 
 
 (: ~
