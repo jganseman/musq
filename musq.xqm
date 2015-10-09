@@ -377,7 +377,7 @@ declare function musq:Permute($this as item()*) as item()*
 {
     (: Work with temporary nodes in the recursion to avoid lists of strings or integers to be converted to atomic types :)
     for $element in $this
-	let $remaininglist := remove($this, min(index-of($this,$element)))    (: 'min' use to that index-of returns only one value :)
+	let $remaininglist := remove($this, min(index-of($this,$element)))    (: 'min' used to make index-of() return only one value :)
 	let $recursionresults := if (count($remaininglist) eq 1) then <temp>{$remaininglist}</temp> else musq:Permute($remaininglist)
 	for $suffix in $recursionresults
 	return <musq:perm>{$element}{$suffix/node()}</musq:perm>
