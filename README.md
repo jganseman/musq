@@ -1,4 +1,4 @@
-# mxquery
+# musq
 XQuery library for MusicXML databases
 
 ### About
@@ -27,8 +27,8 @@ BibTeX:
 - A set of MusicXML files. The online database mentioned in the paper, Wikifonia, does not exist anymore. See http://www.musicxml.com/music-in-musicxml/ for possible alternatives, or convert it from a database in another format. 
 
 ### Contents
-- mxquery.xqm : reworked version of the 2008 queries in the form of an XQuery 3.0 module, as a true function library with its own namespace. Some of the functions are slightly more generic now, and some performance improvements have been implemented. *xqDoc*-style comments have been added. 
-- mxquery-test : a few test routines to verify that the XQuery function library works as intended. Tested to work with *eXist 2.2* and the May 2010 Wikifonia database.
+- musq.xqm : reworked version of the 2008 queries in the form of an XQuery 3.0 module, as a true function library with its own namespace. Some of the functions are slightly more generic now, and some performance improvements have been implemented. *xqDoc*-style comments have been added. 
+- musq-test : a few test routines to verify that the XQuery function library works as intended. Tested to work with *eXist 2.2* and the May 2010 Wikifonia database.
 - Folder 'data' : 3 zip files with Wikifonia data. These files are provided for reasons of research reproducibility. They are password-protected; the password is equal to the filename without extension. This data can be imported into *eXist* to run the queries in the other files.
   - wikifonia2008.zip : Dump of the Wikifonia database, made on 31 march 2008, containing contains 220 scores joined together in a single file. This is the data used for the original ISMIR 2008 paper. 
   - wikifonia2009.zip : Dump of the Wikifonia database, made on 19 June 2009, containing 1381 files.
@@ -44,4 +44,5 @@ BibTeX:
 ### Thanks
 - Michael Good for the code to convert MusicXML pitch elements to MIDI note numbers, from  http://michaelgood.info/publications/music/musicxml-in-practice-issues-in-translation-and-analysis/ 
 - Chris Wallace for an improved version of that code, kindly borrowed from his XQuery Wikibook chapter on MusicXML and Arduino: https://en.wikibooks.org/wiki/XQuery/MusicXML_to_Arduino
+- Thomas Bonte, now at https://musescore.org , for the Wikifonia project
 - All authors of referenced papers in http://ismir2008.ismir.net/papers/ISMIR2008_217.pdf 
