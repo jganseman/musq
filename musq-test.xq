@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-import module namespace musq = "https://github.com/jganseman/mxquery" at "mxquery.xqm";
+import module namespace musq = "https://github.com/jganseman/musq" at "musq.xqm";
 
 declare variable $entiredb := collection("/db/wikifonia");
 declare variable $partofdb := $entiredb[contains (.//movement-title, 'Night')];
